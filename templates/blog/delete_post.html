@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Delete some Post</title>
+</head>
+<body>
+{% if user.is_authenticated %}
+    {% if user.id == post.author.id %}
+        <h1> Delete Post...</h1>
+        <br/><br/>
+        <h3> Delete: {{ post.title }}</h3>
+        <br/>
+        <div class="form-group">
+            <form method="POST">
+                {% csrf_token %}
+                <strong> A you sure?</strong><br/><br/>
+                <button class="btn btn-secondary">Удалить!</button>
+            </form>
+        </div>
+    {% endif %}
+{% else %}
+        Фигвам
+        <ul>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'register' %}">Register</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+        </ul>
+{% endif %}
+</body>
+</html>

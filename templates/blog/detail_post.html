@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+
+<p>заголовок - {{ post.title }}</p>
+<p>автор - {{ post.author }}</p>
+<p>текст - {{ post.body }}</p>
+
+- <a href="{% url 'update_post' post.pk %}">(Редактировать пост)</a>
+<br/>
+	<a href="{% url 'delete_post' post.pk %}"> (Удалить пост)</a>
+<br/>
+<a href="{% url 'new_comment' post.pk %}">Добавить комментарий</a>
+<br/><br/>
+
+
+<h1>Комментарии</h1>
+<br/>
+{% if not post.comments.all %}
+Без комментариев <a href="{% url 'new_comment' post.pk %}">Добавить</a>
+{% else %}
+	<a href="{% url 'new_comment' post.pk %}">Добавить ещё</a>
+<br/><br/>
+	{% for comment in post.comments.all %}
+		<strong>
+			{{ comment.author }}-
+			{{ comment.published }}
+		</strong>
+		<br/>
+		{{ comment.text }}
+	{% endfor %}}
+		<a href="{% url 'new_comment' post.pk %}">Добавить комментарий</a>
+{% endif %}
+</body>
+</html>

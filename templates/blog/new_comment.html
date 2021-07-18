@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Комментарий</title>
+</head>
+<body>
+    <h1>добавить комментарий</h1>
+<br/>
+    <div class="form-group">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-secondart">Добавить комментарий</button>
+        </form>
+    </div>
+</body>
+</html>

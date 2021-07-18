@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+    <section class="categories categories-grid spad">
+        <div class="categories__post">
+            <div class="container">
+                <div class="categories__grid__post">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8">
+                            <div class="breadcrumb__text">
+                                <h2>Categories: <span>{{ post_list.first.category.name }}</span></h2>
+                                <div class="breadcrumb__option">
+                                    <a href="/">Home</a>
+
+
+                                    <span>Recipes</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    {% for post in post_list %}
+                                    <div class="categories__post__item">
+                                        <div class="categories__post__item__pic small__item set-bg"
+                                            data-setbg="{{ post.image.url }}">
+                                        </div>
+                                        <div class="categories__post__item__text">
+                                            <span class="post__label">{{ post.category }}</span>
+                                            <h3><a href="{% url 'post_single' post.category.url post.slug %}">{{ post.title }}</a></h3>
+                                            <ul class="post__widget">
+                                                <li>by <span>{{ post.author }}</span></li>
+                                            </ul>
+                                            <p>{{ post.text|slice:":250" }}</p>
+                                        </div>
+                                    {% empty %}
+                                        <li>No posts yet</li>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                                    <img src="img/sidebar/banner.jpg" alt="">
+                                </div>
+                                <div class="sidebar__item__categories">
+                                    <div class="sidebar__item__title">
+                                        <h6>Categories</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+
+
+

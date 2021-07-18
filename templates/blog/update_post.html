@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit yuor post</title>
+</head>
+<body>
+{% if user.is_authenticated %}
+    {% if user.id == post.author.id %}
+        <h1> Update it</h1>
+        <br/><br/>
+
+        <div class="form-group">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.media }}
+                {{ form.as_p }}
+                <button class="btn btn-secondary">Update</button>
+            </form>
+        </div>
+    {% else %}
+            Prohibited
+    {% endif %}
+{% else %}
+    авторизуйтесь чтобы редактировать пост
+       <ul>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'register' %}">Register</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Login</a>
+        </li>
+       </ul>
+{% endif %}
+<a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+</body>
+</html>

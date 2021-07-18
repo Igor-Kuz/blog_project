@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Создаем новый пост</title>
+</head>
+<body>
+{% if user.is_authenticated %}
+    <div class="form-group">
+    <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+           {# {{ form.media }} #}
+            {{ form.as_p}}
+            <button class="btn btn-secondary" type="submit">Опубликовать</button>
+    </form>
+    </div>
+
+    <script>
+        var name = "{{ user.id }}";
+
+        document.getElementById("elder").value = name;
+    </script>
+{% else %}
+        Зарегистрируйтесь чтобы написать поост
+        <ul>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'register' %}">Register</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+        </ul>
+
+{% endif %}
+ <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+</body>
+</html>

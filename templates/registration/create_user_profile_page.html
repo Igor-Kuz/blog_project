@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Создать Пользователя</title>
+</head>
+<body>
+    <div class="form-group">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+            <button class="btn btn-secondary">Create Profile Page</button>
+        </form>
+    </div>
+</body>
+</html>

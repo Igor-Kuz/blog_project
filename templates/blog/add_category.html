@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Создаём новую категорию </title>
+</head>
+<body>
+{% if user.is_authenticated %}
+    <h1>Доббавить категорию</h1>
+    <div class="form-group">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn-secondary">Добавить категорию</button>
+        </form>
+    </div>
+{% else %}
+
+        Добавлять категории могут только зарегистрированные пользователи
+    <ul>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'register' %}">Register</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Login</a>
+        </li>
+    </ul>
+
+{% endif %}
+ <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+</body>
+</html>

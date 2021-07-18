@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% if category_posts %}
+    <h1>{{ cats }}</h1>
+    <ul>
+        {% for post in category_posts %}
+            <a href="{% url 'post_single' post.category.url post.slug %}">{{ post.title}}</a>
+            -{{ post.authpor }}
+            -{{ post.published }}
+        <small>
+
+            {% if user.is_authenticated %}
+            <a href="{% url 'update_post' post.pk %}">(Редактировать пост)</a>
+            <br/>
+            <a href="{% url 'delete_post' post.pk %}"> (Удалить пост)</a>
+            {% endif %}
+    </small><br/>
+        {% endfor %}
+    </ul>
+{% else %}
+    <h3> Страницы не сууществует</h3>
+        <ul>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'register' %}">Register</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+        </ul>
+{% endif %}
+ <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+</body>
+</html>
