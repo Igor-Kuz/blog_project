@@ -3,6 +3,7 @@ from django.conf import settings
 from django.utils import timezone
 from django.urls import reverse
 from django.utils.text import slugify
+from ckeditor.fields import RichTextField
 
 
 class Post(models.Model):
@@ -11,13 +12,12 @@ class Post(models.Model):
 		('published', 'Published'),
 		)
 	title = models.CharField(max_length=100)
-	body = models.TextField()
+	body = RichTextField(blank=True, null=True)
 	published = models.DateTimeField(default=timezone.now, auto_now_add=True)
 	image = models.ImageField(upload_to='posts')
 	slug = models.SlugField(max_length=150, unique=True)
 	status = models.CharField(choices=STATUS_CHOICES, max_length=50, default='draft')
 	author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-	# author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
 	published = models.DateTimeField(auto_now_add=True) # default=timezone.now,
 	category = models.ForeignKey('Category', verbose_name='Категория', on_delete=models.SET_NULL, null=True)
 	draft = models.BooleanField('Черновик', default=False)
@@ -26,11 +26,11 @@ class Post(models.Model):
 	class Meta:
 		ordering = ('-published',)
 
-	# def __str__(self):
-		# return self.title + '|' + str(self.author)
+	def __str__(self):
+		return self.title + '|' + str(self.author)
 
-	# def get_absolute_url(self):
-	#	return reverse("post_single", kwargs={"slug": self.category.url, "post_slug": self.slug})
+	def get_absolute_url(self):
+		return reverse("post_single", kwargs={"slug": self.category.url, "post_slug": self.slug})
 
 	def get_absolute_url(self):
 		return reverse('home')
@@ -63,7 +63,6 @@ class Category(models.Model):
 	def __str__(self):
 		return self.name
 
-
 	def get_absolute_url(self):
 		return reverse('home')
 
@@ -75,6 +74,8 @@ class Tag(models.Model):
 	def __str__(self):
 		return self.name
 
-# фильтрация по дате, категориям, автору
-# тэги кликабельные
-# поиск в вхождению(содержит часть слова)
+	def get_absolute_url(self):
+		return reverse('tag', kwargs={"slug": self.url})  # url - > slug!!
+
+	class Meta:
+		ordering = ['name']

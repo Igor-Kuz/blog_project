@@ -10,6 +10,7 @@
     <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
            {# {{ form.media }} #}
+           {{ form.media }}
             {{ form.as_p}}
             <button class="btn btn-secondary" type="submit">Опубликовать</button>
     </form>
@@ -34,5 +35,6 @@
 
 {% endif %}
  <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+ 
 </body>
 </html>

@@ -15,11 +15,18 @@
                                 <h2>Categories: <span>{{ post_list.first.category.name }}</span></h2>
                                 <div class="breadcrumb__option">
                                     <a href="/">Home</a>
-
-
                                     <span>Recipes</span>
                                 </div>
                             </div>
+                            <div class="search-bar w3layouts-newsletter">
+                                <h3 class="sear-head editContent">Поиск поста</h3>
+                                <form action="{% url 'search' %}" method="get" class="d-flex editContent">
+                                    <input type="search" placeholder="Введите название..." name="q" class="form-control" required="">
+                                    <button type="submit" class="btn1 btn">
+                                        <span class="fa fa-search" aria-hidden="true"></span>
+                                    </button>
+                                </form>
+                            </div>        
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                     {% for post in post_list %}
@@ -57,6 +64,31 @@
             </div>
         </div>
     </section>
+ <form action="{% url 'filter' %}" method="get" name="filter">
+    <div class="left-side my-4">
+        <h3 class="sear-head editContent">Категория</h3>
+        <ul class="w3layouts-box-list">
+            {% for category in view.get_category %}
+                <li class="editContent">
+                    <input type="checkbox" class="checked" name="category" value="{{ category.id }}">
+                    <span class="span editContent">{{ category.name }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="left-side">
+        <h3 class="sear-head editContent">Автор</h3>
+        <ul class="w3layouts-box-list">
+            {% for post in view.get_author %}
+                <li class="editContent">
+                    <input type="checkbox" class="checked" name="author" value="{{ post.author__id }}">
+                    <span class="span editContent">{{ post.author__username }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <button type="submit">Найти</button>
+</form>
 </body>
 </html>
 

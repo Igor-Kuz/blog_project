@@ -7,7 +7,7 @@ from .models import Post, Comment, Category, Tag
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'slug', 'status')
     prepopulated_fields = {'slug': ('title',)}
-    list_filter = ('status', 'author')
+    list_filter = ('status', 'author', 'category', 'tags')
     search_fields = ('title', 'category')
 
 
@@ -21,4 +21,7 @@ class PostComment(admin.ModelAdmin):
 admin.site.register(Category)
 
  
-admin.site.register(Tag)
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
+    list_display_links = ('name',)

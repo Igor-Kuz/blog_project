@@ -33,6 +33,7 @@
                                                 <span>{{ post.create_at|date:"M" }}</span>
                                             </div>
                                         </div>
+                            
                                         <div class="categories__post__item__text">
                                             <span class="post__label">{{ post.category }}</span>
                                             <h3><a href="{{post.get_absolute_url}}">{{ post.title }}</a></h3>
@@ -55,29 +56,8 @@
                         </div>
                         <div class="col-lg-4 col-md-4">
                             <div class="sidebar__item">
-                                <div class="sidebar__about__item">
-                                    <div class="sidebar__item__title">
-                                        <h6>About me</h6>
-                                    </div>
-                                    <img src="img/sidebar/sidebar-about.jpg" alt="">
-                                    <h6>Hi every one! I,m <span>Lena Mollein.</span></h6>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua.</p>
-                                    <a href="#" class="primary-btn">Read more</a>
-                                </div>
                                 <div class="sidebar__follow__item">
-                                    <div class="sidebar__item__title">
-                                        <h6>Follow me</h6>
-                                    </div>
-                                </div>
                                 <div class="sidebar__feature__item">
-                                    <div class="sidebar__item__title">
-                                        <h6>Feature Posts</h6>
-                                    </div>
-                                    <div class="sidebar__feature__item__large set-bg"
-                                        data-setbg="img/sidebar/feature-post.jpg">
-                                    </div>
-
                                 </div>
                                 <div class="sidebar__item__banner">
                                     <img src="img/sidebar/banner.jpg" alt="">
@@ -86,16 +66,6 @@
                                     <div class="sidebar__item__title">
                                         <h6>Categories</h6>
                                     </div>
-                                </div>
-                                <div class="sidebar__subscribe__item">
-                                    <div class="sidebar__item__title">
-                                        <h6>Subscribe</h6>
-                                    </div>
-                                    <p>Subscribe to our newsletter and get our newest updates right on your inbox.</p>
-                                    <form action="#">
-                                        <input type="text" class="email-input" placeholder="Your email">
-                                        <button type="submit" class="site-btn">Subscribe</button>
-                                    </form>
                                 </div>
                             </div>
                         </div>

@@ -1,21 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title></title>
+    <meta charset="utf-8">
+    <title></title>
 </head>
 <body>
 
 <p>заголовок - {{ post.title }}</p>
 <p>автор - {{ post.author }}</p>
-<p>текст - {{ post.body }}</p>
+<p>текст - {{ post.body|safe }}</p>
+
+<p>Second text field</p>
+<div class="single-post__desc">
+    <p>{{ post.body|safe }}</p>
+</div>
+<div class="single-post__tags">
+    <p>Test first tag</p>
+    {% for tag in post.tags.all %}
+    <a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>
+    {% endfor %}
+</div>
+
 
 - <a href="{% url 'update_post' post.pk %}">(Редактировать пост)</a>
 <br/>
-	<a href="{% url 'delete_post' post.pk %}"> (Удалить пост)</a>
+<a href="{% url 'delete_post' post.pk %}"> (Удалить пост)</a>
 <br/>
 <a href="{% url 'new_comment' post.pk %}">Добавить комментарий</a>
 <br/><br/>
+
+
+{% if user.is_authenticated %}
+{% if user.id == post.author.id %}
+- <a href="{% url 'update_post' post.pk %}">(Edit)</a>
+
+<a href="{% url 'delete_post' post.pk %}">(Delete)</a>
+{% endif %}
+{% endif %}
+<hr>
+<br/>
+<div class="desc-left col-md-6">
+    <img src="{{ post.image.url }}" class="img-post" alt="" style="width: 100px; height: 100px;">
+</div>
+
+<br/><br/>
+{{ post.body|safe }}
+
+<hr>
 
 
 <h1>Комментарии</h1>
@@ -23,17 +54,39 @@
 {% if not post.comments.all %}
 Без комментариев <a href="{% url 'new_comment' post.pk %}">Добавить</a>
 {% else %}
-	<a href="{% url 'new_comment' post.pk %}">Добавить ещё</a>
+<a href="{% url 'new_comment' post.pk %}">Добавить ещё</a>
 <br/><br/>
-	{% for comment in post.comments.all %}
-		<strong>
-			{{ comment.author }}-
-			{{ comment.published }}
-		</strong>
-		<br/>
-		{{ comment.text }}
-	{% endfor %}}
-		<a href="{% url 'new_comment' post.pk %}">Добавить комментарий</a>
+{% for comment in post.comments.all %}
+<strong>
+    {{ comment.author }}-
+    {{ comment.published }}
+</strong>
+<br/>
+{{ comment.text }}
+{% endfor %}}
+<a href="{% url 'new_comment' post.pk %}">Добавить комментарий</a>
 {% endif %}
+
+<p> Test</p>
+<div class="single-content">
+    <div>
+        <span>Category: <a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a></span>
+        <br>
+        {% if post.tags.exists %}
+        <span>
+                                            Tags:
+                                            {% for tag in post.tags.all %}
+                                            <a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>
+                                            {% endfor %}
+                                        </span>
+        <br>
+        {% endif %}
+        <span>Views: {{ post.views }}</span>
+    </div>
+    {{ post.content|safe }}
+</div>
+</div
+
+
 </body>
 </html>

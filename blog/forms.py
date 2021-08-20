@@ -12,11 +12,10 @@ for item in choices:
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'tags', 'category', 'body', 'image') #'author',
+        fields = ('title', 'tags', 'category', 'body', 'image')  # 'author',
 
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
-            # 'tags': forms.TextInput(attrs={'class': 'form-control'}),
             # 'author': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id': 'elder', 'type': 'hidden'}),
             'category': forms.Select(choices=choice_list, attrs={'class': 'form-control'}),
             'body': forms.Textarea(attrs={'class': 'form-control'}),
@@ -43,4 +42,3 @@ class EditForm(forms.ModelForm):
             'tags': forms.SelectMultiple(attrs={'class': 'form-control'}),
             'body': forms.Textarea(attrs={'class': 'form-control'}),
         }
-# django widgets
