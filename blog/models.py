@@ -43,7 +43,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
 	post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
-	author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  # on_delete=models.CASCADE)
+	author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 	text = models.CharField(max_length=500)
 	published = models.DateTimeField(auto_now_add=True)  # default=timezone.now
 	active = models.BooleanField(default=True)

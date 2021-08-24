@@ -1,15 +1,9 @@
-from django.shortcuts import render, get_object_or_404
-from django.template.context_processors import request
+from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy, reverse
-from .models import Post, Comment, Category, Tag
+from django.urls import reverse_lazy
 from .forms import PostForm, CommentForm, EditForm
-from django.http import HttpResponseRedirect
-from django.http import JsonResponse, HttpResponse
-from django.db.models import Q, OuterRef, Subquery, Case, When
-from django.shortcuts import redirect
+from django.db.models import Q
 from .models import *
-from django.views.generic.base import View
 
 
 class Year:
@@ -29,12 +23,12 @@ class HomeView(Year, ListView):
 
     def get_context_data(self, *args, **kwargs):
         cat_menu = Category.objects.all()
-        context = super(HomeView,self).get_context_data(*args, **kwargs)
+        context = super(HomeView, self).get_context_data(*args, **kwargs)
         context["cat_menu"] = cat_menu
         return context
 
 
-def CategoryListView(request):
+def categorylistview(request):
     cat_menu_list = Category.objects.all()
     return render(request, 'blog/category_list.html', {'cat_menu_list': cat_menu_list})
 
@@ -43,13 +37,11 @@ class PostListView(Year, ListView):
     model = Post
 
     def get_queryset(self):
-        return Post.objects.filter(category__url =self.kwargs.get("slug")).select_related('category')
+        return Post.objects.filter(category__url=self.kwargs.get("slug")).select_related('category')
 # sdelat pod title
 
 
 class SearchView(Year, ListView):
-
-
     def get_queryset(self):
         return Post.objects.filter(title__icontains=self.request.GET.get("q"))
 
@@ -115,13 +107,12 @@ class DeletePostView(DeleteView):
     success_url = reverse_lazy('home')
 
 
-class Post_by_Tag(Year, ListView):
+class PostByTag(Year, ListView):
     template_name = 'blog/home.html'
     context_object_name = 'posts'
 
     def get_queryset(self):
         return Post.objects.filter(tags__url=self.kwargs['slug'])  # url - >slug!
-
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -148,6 +139,7 @@ class FilterAuthorView(Year, ListView):
         return context
 
 
-def CategoryView(request, cats):
+def category_view(request, cats):
     category_posts = Post.objects.filter(category__name=cats.replace('-', ''))
-    return render(request, 'blog/categories.html', {'cats': cats.replace('-', '').title(), 'category_posts': category_posts})
+    return render(request, 'blog/categories.html', {'cats': cats.replace('-', '').title(),
+                                                    'category_posts': category_posts})
