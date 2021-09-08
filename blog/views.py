@@ -7,10 +7,12 @@ from django.db.models import Q
 from .models import *
 
 
-def like_view(request, pk):
-    post = get_object_or_404(Post, id=request.POST.get('post_id'))
+def like_view(request, slug):
+    post = Post.objects.get(slug=slug)
     post.likes.add(request.user)
-    return HttpResponseRedirect(reverse('detail_post', args=[str(pk)]))
+    return HttpResponseRedirect(reverse(
+        'post_single', kwargs={"slug": post.category.url, 'post_slug': slug})
+    )
 
 
 class Year:
