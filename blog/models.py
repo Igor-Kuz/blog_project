@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.urls import reverse
 from django.utils.text import slugify
 from ckeditor.fields import RichTextField
+from user.models import User
 
 
 class Post(models.Model):
@@ -22,6 +23,10 @@ class Post(models.Model):
 	category = models.ForeignKey('Category', verbose_name='Категория', on_delete=models.SET_NULL, null=True)
 	draft = models.BooleanField('Черновик', default=False)
 	tags = models.ManyToManyField('Tag', related_name="post")
+	likes = models.ManyToManyField(User, related_name='blog_posts')
+
+	def total_likes(self):
+		return self.likes.count()
 
 	class Meta:
 		ordering = ('-published',)
@@ -49,7 +54,7 @@ class Comment(models.Model):
 	active = models.BooleanField(default=True)
 	email = models.EmailField(max_length=254)
 
-	#def __str__(self):
+#	def __str__(self):
 	#	return '%s-%s' % (self.post.title, self.name)
 
 	class Meta:

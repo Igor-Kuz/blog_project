@@ -1,9 +1,24 @@
-from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from .forms import PostForm, CommentForm, EditForm
 from django.db.models import Q
 from .models import *
+
+
+def like_view(request, slug):
+    post = Post.objects.get(slug=slug)
+    liked = False
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+        liked = False
+    else:
+        post.likes.add(request.user)
+        liked = True
+    return HttpResponseRedirect(reverse(
+        'post_single', kwargs={"slug": post.category.url, 'post_slug': slug})
+    )
 
 
 class Year:
@@ -61,7 +76,10 @@ class PostDetailView(Year, DetailView):
     def get_context_data(self, *args, **kwargs):
         cat_menu = Category.objects.all()
         context = super(PostDetailView, self).get_context_data(*args, **kwargs)
+        #staff = get_object_or_404(Post, id=self.kwargs['pk'])
+        #total_likes = staff.total_likes()
         context['cat_menu'] = cat_menu
+        #context['total_likes'] = total_likes
         return context
 
 
