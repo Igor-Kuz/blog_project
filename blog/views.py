@@ -9,7 +9,13 @@ from .models import *
 
 def like_view(request, slug):
     post = Post.objects.get(slug=slug)
-    post.likes.add(request.user)
+    liked = False
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+        liked = False
+    else:
+        post.likes.add(request.user)
+        liked = True
     return HttpResponseRedirect(reverse(
         'post_single', kwargs={"slug": post.category.url, 'post_slug': slug})
     )
