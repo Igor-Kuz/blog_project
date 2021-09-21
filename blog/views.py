@@ -76,10 +76,7 @@ class PostDetailView(Year, DetailView):
     def get_context_data(self, *args, **kwargs):
         cat_menu = Category.objects.all()
         context = super(PostDetailView, self).get_context_data(*args, **kwargs)
-        #staff = get_object_or_404(Post, id=self.kwargs['pk'])
-        #total_likes = staff.total_likes()
         context['cat_menu'] = cat_menu
-        #context['total_likes'] = total_likes
         return context
 
 

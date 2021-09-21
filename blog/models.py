@@ -24,6 +24,7 @@ class Post(models.Model):
 	draft = models.BooleanField('Черновик', default=False)
 	tags = models.ManyToManyField('Tag', related_name="post")
 	likes = models.ManyToManyField(User, related_name='blog_posts')
+	updated = models.DateTimeField(auto_now=True)
 
 	def total_likes(self):
 		return self.likes.count()
