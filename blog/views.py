@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 from .forms import PostForm, CommentForm, EditForm
@@ -53,7 +53,6 @@ class PostListView(Year, ListView):
 
     def get_queryset(self):
         return Post.objects.filter(category__url=self.kwargs.get("slug")).select_related('category')
-# sdelat pod title
 
 
 class SearchView(Year, ListView):
@@ -70,7 +69,6 @@ class PostDetailView(Year, DetailView):
     model = Post
     context_object_name = "post"
     slug_url_kwarg = 'post_slug'
-    # template_name = "blog/post_detail.html"
     template_name = "blog/detail_post.html"
     
     def get_context_data(self, *args, **kwargs):

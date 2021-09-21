@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Edit yuor post</title>
+    <title>Редактировать пост</title>
 </head>
 <body>
 {% if user.is_authenticated %}
@@ -15,7 +15,7 @@
                 {% csrf_token %}
                 {{ form.media }}
                 {{ form.as_p }}
-                <button class="btn btn-secondary">Update</button>
+                <button class="btn btn-secondary">Обновить</button>
             </form>
         </div>
     {% else %}
