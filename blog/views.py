@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 from .forms import PostForm, CommentForm, EditForm
@@ -70,16 +70,12 @@ class PostDetailView(Year, DetailView):
     model = Post
     context_object_name = "post"
     slug_url_kwarg = 'post_slug'
-    # template_name = "blog/post_detail.html"
     template_name = "blog/detail_post.html"
     
     def get_context_data(self, *args, **kwargs):
         cat_menu = Category.objects.all()
         context = super(PostDetailView, self).get_context_data(*args, **kwargs)
-        #staff = get_object_or_404(Post, id=self.kwargs['pk'])
-        #total_likes = staff.total_likes()
         context['cat_menu'] = cat_menu
-        #context['total_likes'] = total_likes
         return context
 
 
