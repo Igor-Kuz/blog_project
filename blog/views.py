@@ -53,7 +53,6 @@ class PostListView(Year, ListView):
 
     def get_queryset(self):
         return Post.objects.filter(category__url=self.kwargs.get("slug")).select_related('category')
-# sdelat pod title
 
 
 class SearchView(Year, ListView):

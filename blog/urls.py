@@ -16,6 +16,5 @@ urlpatterns = [
     path('tag/<str:slug>/',  PostByTag.as_view(), name='tag'),
     path('like-post/<slug:slug>/', like_view, name='like_post'),
     path('<slug:slug>/<slug:post_slug>/', PostDetailView.as_view(), name="post_single"),
-    #  path('like-post/<int:pk>', like_view, name='like_post'),
     path('', HomeView.as_view(), name="home"),   # home
     ]
