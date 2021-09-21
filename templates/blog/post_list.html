@@ -14,8 +14,8 @@
                             <div class="breadcrumb__text">
                                 <h2>Categories: <span>{{ post_list.first.category.name }}</span></h2>
                                 <div class="breadcrumb__option">
-                                    <a href="./home.html">На главную сраницу</a>
-                                    <a href="./detail_post.html">Отобразить пост</a>
+                                    <a href="./home.html">На главную страницу</a>
+                                    <a href="./detail_post.html">Показать пост</a>
                                     <span>Recipes</span>
                                     <a href="{{post.get_absolute_url}}">{{ post.title }}Try</a>
                                 </div>
@@ -36,8 +36,6 @@
                                             <h3><a href="{{post.get_absolute_url}}">{{ post.title }}</a></h3>
                                             <ul class="post__widget">
                                                 <li>by <span>{{ post.author }}</span></li>
-                                                <li>3 min read</li>
-                                                <li>20 Comment</li>
                                             </ul>
                                             <p>{{ post.text|slice:":250" }}</p>
                                         </div>
