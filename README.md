@@ -1,2 +1,2 @@
 # blog_project
-Blog project based on Django with skeditor and user authentication
+Blog project based on Django framework with filtering, searching, skeditor and user authentication
