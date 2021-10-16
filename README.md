@@ -1,6 +1,16 @@
 # Blog project
-## Blog project which allows users to read and publish articles. In this Blog has been included searching function. Also user can use filters to find interesting article. For your favorite article you can put likes or make some comments. To determinate author of article in this Blog included authentication system. For creating and editing articles in this blog has been added django-ckeditor. To make Blog more SEO friendly in project added sitemap
-
+## Blog project built on the top of Django framework. he blog allows visitors to leave comments and like. Contains functionality: 
+- user registration 
+- user authentication 
+- article creation
+- adding an images to articles
+- filtration
+- search
+- displaying the article creation date
+- displaying the tag system
+- displaing categories
+- counting likes and dislikes
+To make Blog more SEO friendly in project has been added sitemap
 
 ### Инструменты разработки
  
